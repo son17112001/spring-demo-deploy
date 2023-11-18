@@ -15,20 +15,10 @@ pipeline {
             }
         }
 
-        stage('Packaging/Pushing image') {
-
-            steps {
-                withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
-                    sh 'docker build -t son17112001/springboot .'
-                    sh 'docker push son17112001/springboot'
-                }
-            }
-        }
-
         stage('Deploy Spring Boot to DEV') {
             steps {
                 echo 'Deploying and cleaning'
-                sh 'docker image pull son17112001/springboot'
+                sh 'docker build -t son17112001/springboot .'
                 sh 'docker container stop son17112001-springboot || echo "this container does not exist" '
                 sh 'docker network create dev || echo "this network exists"'
                 sh 'echo y | docker container prune '
