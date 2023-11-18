@@ -9,13 +9,15 @@ import java.net.UnknownHostException;
 @RestController
 public class ApiController {
     @GetMapping("/api/container")
-    public String getContainerName(){
-        String containerName = "";
+    public ResponseEntity getContainerName(){
+        String containerName = "Undefine";
         try {
             containerName = InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
             e.printStackTrace();
+            return new ResponseEntity(false, "404", containerName);
         }
-        return "Container name: " + containerName;
+
+        return new ResponseEntity(true, "400",  containerName);
     }
 }
