@@ -1,5 +1,6 @@
 package com.example.springdeployapi.controller;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,7 +9,7 @@ import java.net.UnknownHostException;
 
 @RestController
 public class ApiController {
-    @GetMapping("/api/container")
+    @GetMapping("/api/container", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getContainerName(){
         String containerName = "Undefine";
         try {
@@ -18,6 +19,6 @@ public class ApiController {
             return new ResponseEntity(false, "404", containerName);
         }
 
-        return new ResponseEntity(true, "400",  containerName);
+        return new ResponseEntity(true, "200",  containerName);
     }
 }
