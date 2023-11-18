@@ -9,7 +9,7 @@ import java.net.UnknownHostException;
 
 @RestController
 public class ApiController {
-    @GetMapping("/api/container", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/api/container", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getContainerName(){
         String containerName = "Undefine";
         try {
