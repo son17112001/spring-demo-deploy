@@ -19,6 +19,7 @@ pipeline {
                 sh 'docker compose down || echo "No existing containers"'
                 sh 'docker compose -f docker-compose.yml build'
                 sh 'docker compose -f docker-compose.yml up -d'
+                sh 'docker compose up --scale springboot=3
             }
         }
     }
