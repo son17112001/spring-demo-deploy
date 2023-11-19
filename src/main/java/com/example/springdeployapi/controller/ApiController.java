@@ -1,24 +1,34 @@
 package com.example.springdeployapi.controller;
 
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ApiController {
     @GetMapping(value = "/api/container", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getContainerName(){
+    public Map<String, String> sayHello() {
+        HashMap<String, String> map = new HashMap<>();
         String containerName = "Undefine";
         try {
             containerName = InetAddress.getLocalHost().getHostName();
+            map.put("result", "true");
+            map.put("data", containerName);
+            map.put("code", "200");
         } catch (UnknownHostException e) {
             e.printStackTrace();
-            return new ResponseEntity(false, "404", containerName);
+            map.put("result", "false");
+            map.put("data", containerName);
+            map.put("code", "404");
         }
 
-        return new ResponseEntity(true, "200",  containerName);
+        return map;
     }
 }
